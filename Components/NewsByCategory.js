@@ -1,47 +1,61 @@
-import { Text, View, StyleSheet, Image, FlatList, Pressable } from "react-native";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Image,
+  Button,
+} from "react-native";
 import tw from "tailwind-react-native-classnames";
 
-const AllNews = ({ props }) => {
-  const [allNews, setAllNews] = useState(null);
+const NewsByCategory = ({ route }) => {
+  const [newsByCat, setNewsByCat] = useState(null);
   const [loading, isLoading] = useState(true);
-  const fetchNews = async () => {
-    try {
-      const resp = await fetch("http://192.168.1.21:5050/");
-      const data = await resp.json();
-      setAllNews(data.news);
-      isLoading(false);
-    } catch (error) {
-      console.log(error);
+  const { news, navigation } = route.params;
+  async function getNewsByCat(cat) {
+    if (cat === "" || cat === " " || cat === null) {
+      alert("Please enter category.");
+      return;
     }
-  };
-
-  function setDate(d) {
-    let date = new Date(d);
-    return date.toLocaleString();
+    const news = await fetch(`http://192.168.1.21:5050/category/${cat}`);
+    const receivedNewsByCategory = await news.json();
+    setNewsByCat(receivedNewsByCategory);
+    isLoading(false);
   }
-
   useEffect(() => {
-    fetchNews();
+    if (
+      !news ||
+      news === null ||
+      news === " " ||
+      news === ""
+    ) {
+      alert("Please enter category.");
+    } else {
+      getNewsByCat(news);
+    }
   }, []);
-
   return (
     <>
-      <Text style={tw`font-bold text-2xl p-2`}>Latest News</Text>
-      {loading ? (
+      {news.length === 0 ? (
+        <Text>No News Found in this category.</Text>
+      ) : loading ? (
         <Text>Loading...</Text>
       ) : (
         <View style={styles.layout}>
           <FlatList
-            data={allNews}
+            data={newsByCat}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => (
               <Pressable
                 key={item._id}
                 style={[styles.card]}
-                onPress={() => props.navigate("SingleNews", {
-                    itemId: item._id
-                })}
+                onPress={() =>
+                  navigation.navigate("SingleNews", {
+                    itemId: item._id,
+                  })
+                }
               >
                 <View style={styles.imageLayout}>
                   <Image
@@ -71,7 +85,7 @@ const styles = StyleSheet.create({
   layout: {
     flex: 1,
   },
-  flat : {
+  flat: {
     width: "100%",
   },
   imageLayout: {
@@ -97,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AllNews;
+export default NewsByCategory;

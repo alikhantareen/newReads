@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./Components/HomeScreen";
 import SingleNewsScreen from "./Components/SingleNews";
+import NewsByCategory from "./Components/NewsByCategory";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,11 @@ export default function App() {
         <Stack.Screen
           name="SingleNews"
           component={SingleNewsScreen}
+          options={{ title: "NEW READS" }}
+        />
+        <Stack.Screen
+          name="NewsByCategory"
+          component={NewsByCategory}
           options={{ title: "NEW READS" }}
         />
       </Stack.Navigator>

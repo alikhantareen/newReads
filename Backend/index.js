@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", routes.getAllNews);
 app.get("/:id", routes.getSpecificNews);
+app.get("/category/:category", routes.getNewsByCategory);
 
 
 app.listen(process.env.PORT, () => {

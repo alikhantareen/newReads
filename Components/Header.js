@@ -1,11 +1,32 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
-import { Button } from '@rneui/themed';
+import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { useState } from "react";
 
-const Header = () => {
+const Header = ({ props }) => {
+  const [category, setCategory] = useState("");
+  function validation() {
+    if (!category) {
+      alert("Please enter category.");
+      setCategory("");
+      return;
+    } else if (category === " " || category === "") {
+      alert("Please enter category.");
+      setCategory("");
+      return;
+    } else {
+      props.navigate("NewsByCategory", {
+        news: category,
+        navigation: props,
+      });
+    }
+  }
   return (
     <View style={styles.layout}>
-      <TextInput style={styles.input} />
-      <Button color="primary">Search</Button>
+      <TextInput
+        onChangeText={setCategory}
+        style={styles.input}
+        placeholder="Search by category..."
+      />
+      <Button onPress={validation} title="Search" />
     </View>
   );
 };

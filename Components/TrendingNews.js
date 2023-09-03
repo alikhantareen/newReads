@@ -7,7 +7,7 @@ const TrendingNews = ({ props }) => {
   const [loading, isLoading] = useState(true);
   const fetchNews = async () => {
     try {
-      const resp = await fetch("http://192.168.1.6:5050/");
+      const resp = await fetch("http://192.168.1.21:5050/");
       const data = await resp.json();
       setAllNews(data.news.slice(0, 3));
       isLoading(false);
@@ -40,7 +40,9 @@ const TrendingNews = ({ props }) => {
               <Pressable
                 key={item._id}
                 style={[styles.card]}
-                onPress={() => props.navigate("SingleNews")}
+                onPress={() => props.navigate("SingleNews", {
+                    itemId: item._id
+                })}
               >
                 <View style={styles.imageLayout}>
                   <Image
