@@ -1,14 +1,14 @@
 import Header from "./Header";
 import TrendingNews from "./TrendingNews";
 import AllNews from "./AllNews";
+import Footer from "./Footer";
 
-const HomeScreen = () => {
-
+const HomeScreen = ({ navigation }) => {
   return (
     <>
       <Header />
-      <TrendingNews />
-      <AllNews />
+      <TrendingNews props={navigation} />
+      <AllNews props={navigation} />
     </>
   );
 };

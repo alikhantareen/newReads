@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", routes.getAllNews);
+app.get("/:id", routes.getSpecificNews);
 
 
 app.listen(process.env.PORT, () => {
