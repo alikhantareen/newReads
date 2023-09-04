@@ -19,27 +19,18 @@ const NewsByCategory = ({ route }) => {
       alert("Please enter category.");
       return;
     }
-    const news = await fetch(`http://192.168.1.21:5050/category/${cat}`);
+    const news = await fetch(`http://192.168.1.6:5050/category/${cat}`);
     const receivedNewsByCategory = await news.json();
     setNewsByCat(receivedNewsByCategory);
     isLoading(false);
   }
   useEffect(() => {
-    if (
-      !news ||
-      news === null ||
-      news === " " ||
-      news === ""
-    ) {
-      alert("Please enter category.");
-    } else {
-      getNewsByCat(news);
-    }
+    getNewsByCat(news);
   }, []);
   return (
     <>
       {news.length === 0 ? (
-        <Text>No News Found in this category.</Text>
+        <Text style={tw`text-lg font-bold text-center`}>No News Found in this category.</Text>
       ) : loading ? (
         <Text>Loading...</Text>
       ) : (
