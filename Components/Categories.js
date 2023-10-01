@@ -33,7 +33,8 @@ const Categories = ({ navigation }) => {
                 style={tw`p-4 border rounded-md m-2`}
                 key={key}
                 onPress={() => navigation.navigate("NewsByCategory", {
-                    news: elem
+                    news: elem,
+                    navigation: navigation
                 })}
               >
                 <Text>{elem}</Text>

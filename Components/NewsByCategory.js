@@ -19,7 +19,7 @@ const NewsByCategory = ({ route }) => {
       alert("Please enter category.");
       return;
     }
-    const news = await fetch(`http://192.168.1.6:5050/category/${cat}`);
+    const news = await fetch(`http://192.168.100.148:5050/category/${cat}`);
     const receivedNewsByCategory = await news.json();
     setNewsByCat(receivedNewsByCategory);
     isLoading(false);

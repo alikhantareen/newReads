@@ -8,7 +8,7 @@ const SingleNewsScreen = ({ route }) => {
   const [loading, isLoading] = useState(true);
   const fetchNews = async () => {
     try {
-      const resp = await fetch(`http://192.168.1.6:5050/${itemId}`);
+      const resp = await fetch(`http://192.168.100.148:5050/${itemId}`);
       const data = await resp.json();
       setNews(data.news);
       isLoading(false);

@@ -7,7 +7,7 @@ const AllNews = ({ props }) => {
   const [loading, isLoading] = useState(true);
   const fetchNews = async () => {
     try {
-      const resp = await fetch("http://192.168.1.6:5050/");
+      const resp = await fetch("http://192.168.100.148:5050/");
       const data = await resp.json();
       setAllNews(data.news);
       isLoading(false);
